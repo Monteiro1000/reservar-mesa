@@ -11,3 +11,16 @@ body{
     text-align: center;
     padding-top: 50px;
 }
+
+select{
+    padding-top: 20px;
+    padding-right: 150px;
+    border-radius: 10px;
+}
+div{
+    width: 500px;
+    margin: auto;
+}
+p{
+    
+}
