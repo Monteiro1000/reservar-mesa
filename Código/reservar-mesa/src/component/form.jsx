@@ -5,15 +5,16 @@ function reservaForm() {
     const [mesa, setMesa] = useState('');
     const [horario, setHorario] = useState('');   
     const [pessoas, setPessoas] = useState('');
+    const [mensagem, setMensagem] = useState('');
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const resposta = await fetch('http://localhost:3000/api/login', {
+        const resposta = await fetch('http://localhost:3000/api/reserva', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nome, mesa, horario, pessoas })
         });
         const dados = await resposta.json();
-        setMensagem(dados.mensagem);
+        setMensagem(dados.mensagem); 
     };
 
     return (
@@ -62,7 +63,7 @@ function reservaForm() {
                     </select>
 
                 </div>
-
+                <p>{mensagem}</p>
 
                 <button type="submit">Reservar</button>
 
