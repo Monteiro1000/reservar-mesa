@@ -4,7 +4,7 @@ import ReservaForm from './component/form'
 
 function App() {
     return(
-        <div>
+        <div className='form'>
             <ReservaForm />
         </div>
     )
