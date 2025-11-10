@@ -14,7 +14,7 @@ function reservaForm() {
             body: JSON.stringify({ nome, mesa, horario, pessoas })
         });
         const dados = await resposta.json();
-        setMensagem(dados.mensagem); 
+        setMensagem(dados); 
     };
 
     return (
@@ -63,7 +63,7 @@ function reservaForm() {
                     </select>
 
                 </div>
-                <p>{mensagem}</p>
+                <p>{mensagem.mensagem}</p>
 
                 <button type="submit">Reservar</button>
 
