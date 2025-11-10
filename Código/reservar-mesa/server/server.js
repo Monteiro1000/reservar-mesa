@@ -4,18 +4,19 @@ import cors from 'cors'
 const app = express ();
 //const cors = require('cors');
 //const app = express();
+
 app.use(cors());
 app.use(express.json());
-app.post('/api/login', (req, res) => {
-    const { usuario, senha } = req.body;
-    if (usuario === 'admin' && senha === '1234') {
-        res.json({
-            status: 'sucesso', mensagem: 'Login realizado com sucesso!'
-        });
-    } else {
-        res.json({
-            status: 'erro', mensagem: 'Usuário ou senha inválidos.'
-        });
-    }
+
+let reservas = [];
+
+app.post('/api/reserva', (req, res) => {
+    const { nome, mesa, horario, pessoas } = req.body;
+    const novaReserva = { id: Date.now(), nome, mesa, horario, pessoas };
+    reservas.push(novaReserva);
+
+    res.json({
+        mensagem: `${nome} - Mesa ${mesa} - ${horario}`
+    });
 });
 app.listen(3000, () => console.log('Servidor rodando na porta 3000'))
