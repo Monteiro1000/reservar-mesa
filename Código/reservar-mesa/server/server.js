@@ -12,11 +12,23 @@ let reservas = [];
 
 app.post('/api/reserva', (req, res) => {
     const { nome, mesa, horario, pessoas } = req.body;
+
+    if(nome === "" || mesa === "" || horario === "" || pessoas === "") {
+        res.json({
+            mensagem: `Preencha todos os dados corretamente!`
+        });
+    } else {
+        res.json({
+            mensagem: `Reserva feita`,
+            reservas: reservas
+        });
+    }
+
     const novaReserva = { id: Date.now(), nome, mesa, horario, pessoas };
     reservas.push(novaReserva);
 
-    res.json({
-        mensagem: `${nome} - Mesa ${mesa} - ${horario}`
-    });
+    // res.json({
+    //     reservas
+    // });
 });
 app.listen(3000, () => console.log('Servidor rodando na porta 3000'))
