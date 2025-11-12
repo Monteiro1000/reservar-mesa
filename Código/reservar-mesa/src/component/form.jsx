@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // reservarForm.jsx
 function reservaForm() {
     const [nome, setNome] = useState('');
@@ -6,7 +6,21 @@ function reservaForm() {
     const [horario, setHorario] = useState('');
     const [pessoas, setPessoas] = useState('');
     const [mensagem, setMensagem] = useState('');
-    const [reservas, setReservas] = useState('');
+    const [reservas, setReservas] = useState([]);
+    
+    const loadReservas = async () => {
+        const respostaReservas = await fetch('http://localhost:3000/api/reserva', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        });
+        const data = await respostaReservas.json();
+        setReservas(data.reservas)
+    };
+    
+    useEffect(() => {
+        loadReservas()
+    }, []);
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         const resposta = await fetch('http://localhost:3000/api/reserva', {
@@ -16,8 +30,14 @@ function reservaForm() {
         });
         const dados = await resposta.json();
         setMensagem(dados.mensagem);
-        setReservas(dados.reservas)
+        loadReservas()
     };
+
+
+    
+    
+    
+    
 
     return (
         <div className="App">
@@ -88,7 +108,7 @@ function reservaForm() {
                 <ul className="lista_status">
                     {reservas && reservas.length > 0 ? (
                     reservas.map((r, i) => (
-                        <li key={i}>Mesa {r.mesa} - {r.horario} - {r.nome} ({r.pessoas}(as))</li>
+                        <li key={i}>Mesa {r.mesa} - {r.horario} - {r.nome} ({r.pessoas} pessoa(as))</li>
                     ))
                     ) : (
                         <li>Nenhuma reserva registrada ainda.</li>
