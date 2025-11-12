@@ -77,3 +77,6 @@ select{
 .pcolor {
     color: #EEDA00;
 }
+.lista_status li {
+    color: black;
+}
